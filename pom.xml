@@ -13,13 +13,14 @@
     <modules>
         <module>Core</module>
         <module>Common</module>
-        <module>Player</module>
         <module>Bullet</module>
         <module>CommonBullet</module>
+        <module>Player</module>
         <module>CommonAsteroids</module>
         <module>Asteroids</module>
         <module>Collision</module>
         <module>EnemySpaceShip</module>
+        <module>EnemyBullet</module>
     </modules>
     <properties>
         <java>java</java>
@@ -45,7 +46,6 @@
                 <artifactId>javafx-base</artifactId>
                 <version>21.0.2</version>
             </dependency>
-            
         </dependencies>
     </dependencyManagement>    
     <build>
@@ -94,7 +94,7 @@
                         in "java.lang.module.FindException: Module monitor.observer.zero not found";
                         strange... -->
 
-                        <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:8000</argument>
+<!--                        <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:8000</argument>-->
                         <argument>--module=Core/dk.sdu.mmmi.cbse.main.Main</argument>
                         <argument>--add-modules javafx.graphics</argument>
                     </arguments>

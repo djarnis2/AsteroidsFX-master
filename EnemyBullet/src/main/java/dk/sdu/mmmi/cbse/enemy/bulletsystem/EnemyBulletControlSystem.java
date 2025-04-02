@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.bulletsystem;
+package dk.sdu.mmmi.cbse.enemy.bulletsystem;
 
 import dk.sdu.mmmi.cbse.common.bullet.Bullet;
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
@@ -7,7 +7,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
-public class BulletControlSystem implements IEntityProcessingService {
+public class EnemyBulletControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
@@ -19,4 +19,5 @@ public class BulletControlSystem implements IEntityProcessingService {
             bullet.setY(bullet.getY() + changeY * 3);
         }
     }
+
 }

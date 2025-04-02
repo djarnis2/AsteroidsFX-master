@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +17,7 @@ public class World {
 
     public String addEntity(Entity entity) {
         entityMap.put(entity.getID(), entity);
+//        System.out.println("Added entity" + entityMap);
         return entity.getID();
     }
 
@@ -36,6 +38,7 @@ public class World {
         for (Entity e : getEntities()) {
             for (Class<E> entityType : entityTypes) {
                 if (entityType.equals(e.getClass())) {
+//                    r.forEach(System.out::println);
                     r.add(e);
                 }
             }

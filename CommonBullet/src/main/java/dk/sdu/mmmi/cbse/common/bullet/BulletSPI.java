@@ -8,5 +8,8 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
  * @author corfixen
  */
 public interface BulletSPI {
+
+    String getType();
+
     Entity createBullet(Entity e, GameData gameData);
 }

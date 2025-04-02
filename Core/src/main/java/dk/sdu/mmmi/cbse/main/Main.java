@@ -71,6 +71,7 @@ public class Main extends Application {
 
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : getPluginServices()) {
+            System.out.println("TEST Loaded service: " + iGamePlugin.getClass().getName());
             iGamePlugin.start(gameData, world);
         }
         for (Entity entity : world.getEntities()) {
@@ -83,7 +84,7 @@ public class Main extends Application {
         window.setTitle("ASTEROIDS");
         window.show();
     }
-
+// render() bliver kaldt meget ofte - skal ikke være for tung
     private void render() {
         new AnimationTimer() {
             @Override
@@ -98,9 +99,11 @@ public class Main extends Application {
 
     private void update() {
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
+//            System.out.println("TEST Loaded service: " + entityProcessorService.getClass().getName());
             entityProcessorService.process(gameData, world);
         }
         for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
+//            System.out.println("TEST Loaded service: " + postEntityProcessorService.getClass().getName());
             postEntityProcessorService.process(gameData, world);
         }       
     }

@@ -1,4 +1,4 @@
-package spaceship;
+package $dk.sdu.mmmi.cbse;
 
 /**
  * Hello world!
