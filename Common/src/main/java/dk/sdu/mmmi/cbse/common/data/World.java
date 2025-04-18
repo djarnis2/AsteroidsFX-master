@@ -1,6 +1,6 @@
 package dk.sdu.mmmi.cbse.common.data;
 
-import java.sql.SQLOutput;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -15,10 +15,10 @@ public class World {
 
     private final Map<String, Entity> entityMap = new ConcurrentHashMap<>();
 
-    public String addEntity(Entity entity) {
+    public void addEntity(Entity entity) {
         entityMap.put(entity.getID(), entity);
 //        System.out.println("Added entity" + entityMap);
-        return entity.getID();
+        entity.getID();
     }
 
     public void removeEntity(String entityID) {

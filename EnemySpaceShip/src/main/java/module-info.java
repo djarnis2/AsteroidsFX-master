@@ -7,5 +7,5 @@ module EnemySpaceShip {
     requires EnemyBullet;
     uses dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
     provides IGamePluginService with spaceship.EnemySpaceShipPlugin;
-    provides IEntityProcessingService with spaceship.EnemySpaceShipControlSystem;
+    provides IEntityProcessingService with spaceship.EnemySpaceShipControlSystem, spaceship.EnemySpawnSystem;
 }

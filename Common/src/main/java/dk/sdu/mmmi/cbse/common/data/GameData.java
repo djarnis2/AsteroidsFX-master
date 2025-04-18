@@ -1,11 +1,31 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GameData {
 
     private int displayWidth  = 1280 ;
     private int displayHeight = 1024;
     private final GameKeys keys = new GameKeys();
+    private float delta;
+    private final Map<String, Object> data = new HashMap<>();
 
+    public void setData(String key, Object value) {
+        data.put(key, value);
+    }
+
+    public Object getData(String key) {
+        return data.get(key);
+    }
+
+    public float getDelta() {
+        return delta;
+    }
+
+    public void setDelta(float delta) {
+        this.delta = delta;
+    }
 
     public GameKeys getKeys() {
         return keys;

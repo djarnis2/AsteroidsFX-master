@@ -14,46 +14,73 @@ import static java.util.stream.Collectors.toList;
 
 public class EnemySpaceShipControlSystem implements IEntityProcessingService {
 
+
     @Override
     public void process(GameData gameData, World world) {
-        int rand = (int)(Math.random()*80 + 1);
-            
+
+        float delta = gameData.getDelta();
+
         for (Entity enemy : world.getEntities(EnemySpaceShip.class)) {
-            if (rand == 1) {
-                enemy.setRotation(enemy.getRotation() - 5);                
-            }
-            if (rand == 2) {
-                enemy.setRotation(enemy.getRotation() + 5);                
-            }
-            if (rand == 3) {
-                double changeX = Math.cos(Math.toRadians(enemy.getRotation()));
-                double changeY = Math.sin(Math.toRadians(enemy.getRotation()));
-                enemy.setX(enemy.getX() + changeX);
-                enemy.setY(enemy.getY() + changeY);
-            }
-            if(rand == 4) {
-                getBulletSPIs().stream().findFirst().ifPresent(
-                        spi -> {world.addEntity(spi.createBullet(enemy, gameData));}
-                );
-            }
-            
-        if (enemy.getX() < 0) {
-            enemy.setX(1);
-        }
+            // instantiating cooldowns if null
+            if (enemy.getData("shootCooldown") == null) enemy.setData("shootCooldown", 0f);
+            if (enemy.getData("dirCooldown") == null) enemy.setData("dirCooldown", 0f);
 
-        if (enemy.getX() > gameData.getDisplayWidth()) {
-            enemy.setX(gameData.getDisplayWidth()-1);
-        }
+            float shootCooldown = (float) enemy.getData("shootCooldown");
+            float dirCooldown = (float) enemy.getData("dirCooldown");
 
-        if (enemy.getY() < 0) {
-            enemy.setY(1);
-        }
+            shootCooldown -= delta;
+            dirCooldown -= delta;
+            // for choosing between rotations left or right, move or shoot
+            int rand = (int) (Math.random() * 4 + 1);
+            int randDir = (int) (Math.random() * 100 + 1);
+            if (dirCooldown <= 0) {
+                if (rand == 1) {
+                    enemy.setRotation(enemy.getRotation() - randDir);
+                } else if (rand == 2) {
+                    enemy.setRotation(enemy.getRotation() + randDir);
+                } else if (rand == 3) {
+                    // Do nothing
+                }
+                dirCooldown = 2.0f;
+            }
 
-        if (enemy.getY() > gameData.getDisplayHeight()) {
-            enemy.setY(gameData.getDisplayHeight()-1);
-        }
 
-                                        
+            if (rand == 4) {
+                if (shootCooldown <= 0) {
+                    getBulletSPIs().stream().findFirst().ifPresent(
+                            spi -> {
+                                world.addEntity(spi.createBullet(enemy, gameData));
+                            }
+                    );
+
+                    shootCooldown = 1.0f;
+                }
+
+            }
+            double changeX = Math.cos(Math.toRadians(enemy.getRotation()));
+            double changeY = Math.sin(Math.toRadians(enemy.getRotation()));
+            enemy.setX(enemy.getX() + changeX);
+            enemy.setY(enemy.getY() + changeY);
+            enemy.setData("shootCooldown", shootCooldown);
+            enemy.setData("dirCooldown", dirCooldown);
+
+            if (enemy.getX() < 1) {
+                enemy.setRotation((enemy.getRotation() + 180) % 360);
+            }
+
+            if (enemy.getX() > (gameData.getDisplayWidth() - 1)) {
+                enemy.setRotation((enemy.getRotation() + 180) % 360);
+            }
+
+            if (enemy.getY() < 1) {
+                enemy.setRotation((enemy.getRotation() + 180) % 360);
+            }
+
+            if (enemy.getY() > (gameData.getDisplayHeight() - 1)) {
+                enemy.setRotation((enemy.getRotation() + 180) % 360);
+            }
+
+
         }
     }
 

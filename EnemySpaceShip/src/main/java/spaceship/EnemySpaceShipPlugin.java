@@ -4,6 +4,8 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+
+
 public class EnemySpaceShipPlugin implements IGamePluginService {
 
     private Entity enemy;
@@ -17,6 +19,7 @@ public class EnemySpaceShipPlugin implements IGamePluginService {
         // Add entities to the world
         enemy = createEnemySpaceShip(gameData);
         world.addEntity(enemy);
+
     }
 
     private Entity createEnemySpaceShip(GameData gameData) {
@@ -25,8 +28,8 @@ public class EnemySpaceShipPlugin implements IGamePluginService {
 
         Entity enemySpaceShip = new EnemySpaceShip();
         enemySpaceShip.setPolygonCoordinates(-15,-15,30,0,-15,15);
-        enemySpaceShip.setX(gameData.getDisplayHeight()/2);
-        enemySpaceShip.setY(gameData.getDisplayWidth()/2);
+        enemySpaceShip.setX((double) gameData.getDisplayHeight() /2);
+        enemySpaceShip.setY((double) gameData.getDisplayWidth() /2);
         enemySpaceShip.setRadius(20);
         enemySpaceShip.setX(randomX);
         enemySpaceShip.setY(randomY);

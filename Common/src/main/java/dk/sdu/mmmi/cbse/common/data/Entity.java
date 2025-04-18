@@ -1,6 +1,8 @@
 package dk.sdu.mmmi.cbse.common.data;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Entity implements Serializable {
@@ -12,7 +14,9 @@ public class Entity implements Serializable {
     private double y;
     private double rotation;
     private float radius;
-            
+    private final Map<String, Object> data = new HashMap<>();
+
+
 
     public String getID() {
         return ID.toString();
@@ -59,5 +63,12 @@ public class Entity implements Serializable {
         
     public float getRadius() {
         return this.radius;
+    }
+    public void setData(String key, Object value) {
+        data.put(key, value);
+    }
+
+    public Object getData(String key) {
+        return data.get(key);
     }
 }

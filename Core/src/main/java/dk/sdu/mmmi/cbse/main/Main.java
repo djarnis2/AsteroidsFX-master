@@ -87,8 +87,19 @@ public class Main extends Application {
 // render() bliver kaldt meget ofte - skal ikke være for tung
     private void render() {
         new AnimationTimer() {
+            private long timer = 0;
+
             @Override
             public void handle(long now) {
+                if (timer == 0) {
+                    timer = now;
+                    return;
+                }
+                float deltaTime = (now - timer) / 1_000_000_000f; // convert to seconds
+                timer = now;
+
+                gameData.setDelta(deltaTime);
+
                 update();
                 draw();
                 gameData.getKeys().update();
